@@ -2,22 +2,18 @@
 
 namespace App\Repository;
 
+use App\DataProvider\Database;
 use App\Entity\Acteur;
 use PDO;
 
 class ActeurRepository
 {
-    //connexion a PDO
-    private $username = 'root';
-    private $pwd = '';
-    private $dsn = 'mysql://host=localhost;port=3306;dbname=cinema';
-
     /** @var PDO */
     private $connexion;
 
     public function __construct()
     {
-        $this->connexion = new PDO($this->dsn, $this->username, $this->pwd, []);
+        $this->connexion = Database::getConnection();
     }
 
     /**

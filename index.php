@@ -34,9 +34,9 @@ $resultat = $acteur->findAll();
         <tbody>
             <?php foreach ($resultat as $acteur) :  ?>
                 <tr>
-                    <td><?= $acteur['id']; ?></td>
-                    <td><?= $acteur['nom']; ?></td>
-                    <td><?= $acteur['prenom']; ?></td>
+                    <td><?= $acteur->getId(); ?></td>
+                    <td><?= $acteur->getNom(); ?></td>
+                    <td><?= $acteur->getPrenom(); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
