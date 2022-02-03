@@ -90,13 +90,12 @@ class ActeurRepository
      * @param integer $id
      * @return array
      */
-    public function findById(int $id): array
+    public function findById(int $id): array|Acteur
     {
         $sql = 'SELECT * FROM acteur where id = :id';
         $statement = $this->connexion->prepare($sql);
         $statement->execute(['id' => $id]);
-        $resultat = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+        $resultat = $statement->fetch(PDO::FETCH_ASSOC);
         if ($resultat) {
             $acteur = new Acteur($resultat['id'], $resultat['nom'], $resultat['prenom']);
 
