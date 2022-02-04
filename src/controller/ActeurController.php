@@ -5,24 +5,32 @@ namespace App\Controller;
 use App\Entity\Acteur;
 use App\Repository\ActeurRepository;
 
-class ActeurController
+class ActeurController extends AbstractController
 {
+    /** @var ActeurRepository */
+    private $acteurRepo;
+
+    public function __construct()
+    {
+        $this->acteurRepo = new ActeurRepository();
+    }
+
     public function list()
     {
-        $acteur = new ActeurRepository();
-        $acteurs = $acteur->findAll();
+        $acteurs = $this->acteurRepo->findAll();
+        $title = 'Liste Acteur';
         //recup la vue pour affichage
-        require_once('./src/view/acteur/liste.phtml');
+        $this->renderView('acteur/liste', compact('acteurs', 'title'));
     }
 
     public function detail()
     {
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         if ($id) {
-            $acteurRepo = new ActeurRepository();
-            $acteur = $acteurRepo->findById($id);
-
-            require_once('./src/view/acteur/detail.phtml');
+            /** @var Acteur */
+            $acteur = $this->acteurRepo->findById($id);
+            $title = 'ficher de ' . $acteur->getNom();
+            $this->renderView('acteur/detail', compact('acteur', 'title'));
         }
     }
 }
